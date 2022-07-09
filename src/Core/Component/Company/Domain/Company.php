@@ -17,7 +17,7 @@ class Company
 
     private Address $address;
 
-    private array $workers = [];
+    private $workers;
 
 
     public function getId(): int
@@ -61,7 +61,7 @@ class Company
         return $this;
     }
 
-    public function getWorkers(): array
+    public function getWorkers()
     {
         return $this->workers;
     }

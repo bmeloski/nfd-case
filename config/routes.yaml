@@ -2,8 +2,3 @@ api_company_show:
     path:       /api/company/{id}
     controller: App\Presentation\Component\Company\Controller\CompanyShow\CompanyShowController::show
     methods:    GET|HEAD
-
-api_company_list:
-    path:       /api/company
-    controller: App\Presentation\Component\Company\Controller\CompanyList\CompanyListController::list
-    methods:    GET|HEAD
