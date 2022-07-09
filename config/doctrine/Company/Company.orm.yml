@@ -1,0 +1,24 @@
+App\Core\Component\Company\Domain\Company:
+    type: entity
+    table: company
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+        taxNumber:
+            type: string
+    oneToOne:
+        address:
+            targetEntity: App\Core\Component\Company\Domain\Address\Address
+            joinColumn:
+                name: address_id
+                referencedColumnName: id
+                onDelete: CASCADE
+    oneToMany:
+        workers:
+            targetEntity: App\Core\Component\Company\Domain\Worker\Worker
+            mappedBy: company
+            cascade: [ "persist", "merge" ]

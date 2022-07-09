@@ -1,0 +1,21 @@
+App\Core\Component\Company\Domain\Address\Address:
+    type: entity
+    table: address
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        streetAddress:
+            type: string
+        city:
+            type: string
+        postalCode:
+            type: string
+    oneToOne:
+        company:
+            targetEntity: App\Core\Component\Company\Domain\Company
+            joinColumn:
+                name: company_id
+                referencedColumnName: id
+                onDelete: CASCADE

@@ -1,0 +1,29 @@
+App\Core\Component\Company\Domain\Company:
+    properties:
+        name:
+            - NotBlank:
+                  message: 'company.blank'
+        taxNumber:
+            - Length:
+                  min: 10
+                  max: 10
+                  minMessage: 'nip.too_short'
+                  maxMessage: 'nip.too_long'
+        address:
+            - NotBlank:
+                  message: 'company.blank_address'
+
+App\Core\Component\Company\Domain\Address\Address:
+    properties:
+        company:
+            - NotBlank: ~
+              message: 'address.blank_company'
+        streetAddress:
+            - NotBlank:
+                  message: 'address.blank_streetAddress'
+        city:
+            - NotBlank:
+                  message: 'address.blank_city'
+        postalCode:
+            - NotBlank:
+                  message: 'address.blank_postalCode'

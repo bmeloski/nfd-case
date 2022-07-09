@@ -8,14 +8,26 @@ doctrine:
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        auto_mapping: true
+        auto_mapping: false
         mappings:
-            App:
+            App\Core\Component\Company\Domain\Company:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine/Company'
+                prefix: 'App\Core\Component\Company\Domain'
+                alias: Company
+            App\Core\Component\Company\Domain\Worker\Worker:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine/Company/Worker'
+                prefix: 'App\Core\Component\Company\Domain\Worker'
+                alias: Worker
+            App\Core\Component\Company\Domain\Address\Address:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/doctrine/Company/Address'
+                prefix: 'App\Core\Component\Company\Domain\Address'
+                alias: Address
 when@test:
     doctrine:
         dbal:
