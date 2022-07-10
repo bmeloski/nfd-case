@@ -24,3 +24,11 @@ api_worker_create:
     path:       /api/worker
     controller: App\Presentation\Component\Company\Controller\API\Worker\WorkerCreateController::create
     methods:    POST
+api_worker_update:
+    path:       /api/worker/{id}
+    controller: App\Presentation\Component\Company\Controller\API\Worker\WorkerUpdateController::update
+    methods:    POST
+api_worker_delete:
+    path:       /api/worker/{id}
+    controller: App\Presentation\Component\Company\Controller\API\Worker\WorkerDeleteController::delete
+    methods:    DELETE
