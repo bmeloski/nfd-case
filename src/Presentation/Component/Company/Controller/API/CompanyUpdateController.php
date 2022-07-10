@@ -48,12 +48,18 @@ class CompanyUpdateController extends AbstractController
 
         /** @var CompanyDTO $companyDTO */
         $companyDTO = $this->serializer->deserialize($request->getContent(), CompanyDTO::class, 'json');
-
         $errors = $this->validator->validate($this->transformer->transferToObject($companyDTO));
 
         if (count($errors) > 0) {
             return new Response((string) $errors);
         }
+
+        if (!$this->managementService->checkIfExists($id)) {
+            return new Response (
+                $this->translator->trans('no_result'),
+                Response::HTTP_OK
+            );
+        };
 
         $this->commandBus->dispatch(
             new UpdateCompanyCommand(

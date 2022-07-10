@@ -12,3 +12,8 @@ api_company_update:
     path:       /api/company/{id}
     controller: App\Presentation\Component\Company\Controller\API\CompanyUpdateController::update
     methods:    POST
+
+api_company_delete:
+    path:       /api/company/{id}
+    controller: App\Presentation\Component\Company\Controller\API\CompanyDeleteController::delete
+    methods:    DELETE

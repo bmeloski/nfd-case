@@ -17,8 +17,10 @@ App\Core\Component\Company\Domain\Worker\Worker:
             nullable: true
     manyToOne:
         company:
-            ignore: true
             targetEntity: App\Core\Component\Company\Domain\Company
             inversedBy: workers
             joinColumn:
+                name: company_id
+                referencedColumnName: id
+                onDelete: CASCADE
                 nullable: false

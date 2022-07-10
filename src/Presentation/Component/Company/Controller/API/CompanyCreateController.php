@@ -5,41 +5,32 @@ declare(strict_types=1);
 namespace App\Presentation\Component\Company\Controller\API;
 
 use App\Core\Component\Company\Application\Command\CreateCompanyCommand;
-use App\Core\Component\Company\Application\Command\UpdateCompanyCommand;
 use App\Core\Component\Company\Application\DTO\CompanyDTO;
 use App\Core\Component\Company\Application\DTO\CompanyDTOTransformer;
-use App\Core\Component\Company\Application\Service\CompanyManagementService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CompanyCreateController extends AbstractController
 {
     private MessageBusInterface $commandBus;
     private SerializerInterface $serializer;
-    private CompanyManagementService $managementService;
     private CompanyDTOTransformer $transformer;
-    private TranslatorInterface $translator;
     private ValidatorInterface $validator;
 
     public function __construct(
         MessageBusInterface $commandBus,
         SerializerInterface $serializer,
-        CompanyManagementService $managementService,
         CompanyDTOTransformer $transformer,
-        TranslatorInterface $translator,
         ValidatorInterface $validator
     )
     {
         $this->commandBus = $commandBus;
         $this->serializer = $serializer;
-        $this->managementService = $managementService;
         $this->transformer = $transformer;
-        $this->translator = $translator;
         $this->validator = $validator;
     }
 
@@ -67,7 +58,7 @@ class CompanyCreateController extends AbstractController
         );
         return new Response (
             $response,
-            Response::HTTP_OK
+            Response::HTTP_CREATED
         );
     }
 }
