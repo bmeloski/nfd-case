@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Component\Company\Controller\CompanyUpdate;
+namespace App\Presentation\Component\Company\Controller\API;
 
 use App\Core\Component\Company\Application\Command\UpdateCompanyCommand;
 use App\Core\Component\Company\Application\DTO\CompanyDTO;

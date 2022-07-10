@@ -14,6 +14,14 @@ class Address
     private string $postalCode;
     private Company $company;
 
+    public function __construct(?string $streetAddress = null, ?string $city = null, ?string $postalCode = null)
+    {
+        $streetAddress ? $this->streetAddress = $streetAddress : null;
+        $city ? $this->city = $city : null;
+        $postalCode ? $this->postalCode = $postalCode : null;
+    }
+
+
     public function getId(): int
     {
         return $this->id;

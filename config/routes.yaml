@@ -1,9 +1,14 @@
 api_company_show:
     path:       /api/company/{id}
-    controller: App\Presentation\Component\Company\Controller\CompanyShow\CompanyShowController::show
+    controller: App\Presentation\Component\Company\Controller\API\CompanyShowController::show
     methods:    GET|HEAD
+
+api_company_create:
+    path:       /api/company
+    controller: App\Presentation\Component\Company\Controller\API\CompanyCreateController::create
+    methods:    POST
 
 api_company_update:
     path:       /api/company/{id}
-    controller: App\Presentation\Component\Company\Controller\CompanyUpdate\CompanyUpdateController::update
+    controller: App\Presentation\Component\Company\Controller\API\CompanyUpdateController::update
     methods:    POST

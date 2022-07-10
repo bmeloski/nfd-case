@@ -15,6 +15,13 @@ class Company
     private Address $address;
     private iterable $workers;
 
+    public function __construct(?string $name = null, ?string $taxNumber = null, ?Address $address = null)
+    {
+        $name ? $this->name = $name : null ;
+        $taxNumber ? $this->taxNumber = $taxNumber: null ;
+        $address ? $this->address = $address: null ;
+    }
+
 
     public function getId(): int
     {
@@ -60,6 +67,7 @@ class Company
     public function setAddress(Address $address): self
     {
         $this->address = $address;
+        $address->setCompany($this);
 
         return $this;
     }

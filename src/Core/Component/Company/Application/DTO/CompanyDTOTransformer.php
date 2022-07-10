@@ -24,10 +24,10 @@ class CompanyDTOTransformer extends AbstractResponseDTOTransformer
     public function transformFromObject($company): CompanyDTO
     {
         return new CompanyDTO(
-            $company->getId(),
             $company->getName(),
             $company->getTaxNumber(),
             $this->addressTransformer->transformFromObject($company->getAddress()),
+            $company->getId(),
             ($company->getWorkers() ? $this->workerTransformer->transformFromObjects($company->getWorkers()) : null)
         );
     }

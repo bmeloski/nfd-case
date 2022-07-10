@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Presentation\Component\Company\Controller\CompanyShow;
+namespace App\Presentation\Component\Company\Controller\API;
 
 use App\Core\Component\Company\Application\DTO\CompanyDTOTransformer;
 use App\Core\Component\Company\Application\Query\GetCompanyQuery;

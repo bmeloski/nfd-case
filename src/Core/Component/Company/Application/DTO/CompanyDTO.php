@@ -8,17 +8,17 @@ use App\Core\Component\Company\Application\DTO\Address\AddressDTO;
 
 final class CompanyDTO
 {
-    private int $id;
+    private ?int $id;
     private string $name;
     private string $taxNumber;
     private AddressDTO $address;
     private ?iterable $workers;
 
     public function __construct(
-        int $id,
         string $name,
         string $taxNumber,
         AddressDTO $address,
+        ?int $id,
         ?iterable $workers
     ) {
         $this->id = $id;
@@ -28,7 +28,7 @@ final class CompanyDTO
         $this->workers = $workers;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

@@ -17,6 +17,7 @@ App\Core\Component\Company\Domain\Company:
                 name: address_id
                 referencedColumnName: id
                 onDelete: CASCADE
+            cascade: [ "persist", "merge" ]
     oneToMany:
         workers:
             targetEntity: App\Core\Component\Company\Domain\Worker\Worker
