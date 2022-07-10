@@ -38,27 +38,35 @@ class CompanyCreateController extends AbstractController
     {
         $response = null;
 
-        /** @var CompanyDTO $companyDTO */
-        $companyDTO = $this->serializer->deserialize($request->getContent(), CompanyDTO::class, 'json');
+        try {
+            /** @var CompanyDTO $companyDTO */
+            $companyDTO = $this->serializer->deserialize($request->getContent(), CompanyDTO::class, 'json');
 
-        $errors = $this->validator->validate($this->transformer->transferToObject($companyDTO));
+            $errors = $this->validator->validate($this->transformer->transferToObject($companyDTO));
 
-        if (count($errors) > 0) {
-            return new Response((string) $errors);
+            if (count($errors) > 0) {
+                return new Response((string) $errors);
+            }
+
+            $this->commandBus->dispatch(
+                new CreateCompanyCommand(
+                    $companyDTO->getName(),
+                    $companyDTO->getTaxNumber(),
+                    $companyDTO->getAddress()->getStreetAddress(),
+                    $companyDTO->getAddress()->getCity(),
+                    $companyDTO->getAddress()->getPostalCode()
+                )
+            );
+
+            return new Response (
+                $response,
+                Response::HTTP_CREATED
+            );
+        } catch (\Exception $exception) {
+            return new Response(
+                $exception->getMessage(),
+                $exception->getCode()
+            );
         }
-
-        $this->commandBus->dispatch(
-            new CreateCompanyCommand(
-                $companyDTO->getName(),
-                $companyDTO->getTaxNumber(),
-                $companyDTO->getAddress()->getStreetAddress(),
-                $companyDTO->getAddress()->getCity(),
-                $companyDTO->getAddress()->getPostalCode()
-            )
-        );
-        return new Response (
-            $response,
-            Response::HTTP_CREATED
-        );
     }
 }

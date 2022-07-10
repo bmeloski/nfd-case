@@ -34,15 +34,22 @@ class WorkerShowController extends AbstractController
 
     public function show(int $id): Response
     {
-        $workerQuery = $this->queryBus->query((new GetWorkerQuery($id)));
+        try {
+            $workerQuery = $this->queryBus->query((new GetWorkerQuery($id)));
 
-        $workerDTO = $workerQuery
-            ? $this->transformer->transformFromObject($workerQuery)
-            : [$this->translator->trans('no_result')];
+            $workerDTO = $workerQuery
+                ? $this->transformer->transformFromObject($workerQuery)
+                : [$this->translator->trans('no_result')];
 
-        return new Response (
-            $this->serializer->serialize($workerDTO, 'json'),
-            Response::HTTP_OK
-        );
+            return new Response (
+                $this->serializer->serialize($workerDTO, 'json'),
+                Response::HTTP_OK
+            );
+        } catch (\Exception $exception) {
+            return new Response(
+                $exception->getMessage(),
+                $exception->getCode()
+            );
+        }
     }
 }

@@ -46,34 +46,41 @@ class WorkerUpdateController extends AbstractController
     {
         $response = null;
 
-        /** @var WorkerDTO $workerDTO */
-        $workerDTO = $this->serializer->deserialize($request->getContent(), WorkerDTO::class, 'json');
-        $errors = $this->validator->validate($this->transformer->transferToObject($workerDTO));
+        try {
+            /** @var WorkerDTO $workerDTO */
+            $workerDTO = $this->serializer->deserialize($request->getContent(), WorkerDTO::class, 'json');
+            $errors = $this->validator->validate($this->transformer->transferToObject($workerDTO));
 
-        if (count($errors) > 0) {
-            return new Response((string) $errors);
-        }
+            if (count($errors) > 0) {
+                return new Response((string) $errors);
+            }
 
-        if (!$this->managementService->checkIfWorkerExists($id)) {
+            if (!$this->managementService->checkIfWorkerExists($id)) {
+                return new Response (
+                    $this->translator->trans('no_result'),
+                    Response::HTTP_OK
+                );
+            };
+
+            $this->commandBus->dispatch(
+                new UpdateWorkerCommand(
+                    $id,
+                    $workerDTO->getFirstName(),
+                    $workerDTO->getLastName(),
+                    $workerDTO->getEmail(),
+                    $workerDTO->getPhoneNumber(),
+                    $workerDTO->getCompanyId()
+                )
+            );
             return new Response (
-                $this->translator->trans('no_result'),
+                $response,
                 Response::HTTP_OK
             );
-        };
-
-        $this->commandBus->dispatch(
-            new UpdateWorkerCommand(
-                $id,
-                $workerDTO->getFirstName(),
-                $workerDTO->getLastName(),
-                $workerDTO->getEmail(),
-                $workerDTO->getPhoneNumber(),
-                $workerDTO->getCompanyId()
-            )
-        );
-        return new Response (
-            $response,
-            Response::HTTP_OK
-        );
+        } catch (\Exception $exception) {
+            return new Response(
+                $exception->getMessage(),
+                $exception->getCode()
+            );
+        }
     }
 }

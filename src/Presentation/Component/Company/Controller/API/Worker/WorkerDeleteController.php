@@ -33,18 +33,25 @@ class WorkerDeleteController extends AbstractController
     {
         $response = null;
 
-        if (!$this->managementService->checkIfWorkerExists($id)) {
-            return new Response (
-                $this->translator->trans('no_result'),
+        try {
+            if (!$this->managementService->checkIfWorkerExists($id)) {
+                return new Response (
+                    $this->translator->trans('no_result'),
+                    Response::HTTP_OK
+                );
+            };
+
+            $this->commandBus->dispatch(new DeleteWorkerCommand($id));
+
+            return new Response(
+                $response,
                 Response::HTTP_OK
             );
-        };
-
-        $this->commandBus->dispatch(new DeleteWorkerCommand($id));
-
-        return new Response (
-            $response,
-            Response::HTTP_OK
-        );
+        } catch (\Exception $exception) {
+            return new Response(
+                $exception->getMessage(),
+                $exception->getCode()
+            );
+        }
     }
 }

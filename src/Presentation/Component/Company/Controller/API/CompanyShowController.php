@@ -34,15 +34,22 @@ class CompanyShowController extends AbstractController
 
     public function show(int $id): Response
     {
-        $companyQuery = $this->queryBus->query((new GetCompanyQuery($id)));
+        try {
+            $companyQuery = $this->queryBus->query((new GetCompanyQuery($id)));
 
-        $companyDTO = $companyQuery
-            ? $this->transformer->transformFromObject($companyQuery)
-            : [$this->translator->trans('no_result')];
+            $companyDTO = $companyQuery
+                ? $this->transformer->transformFromObject($companyQuery)
+                : [$this->translator->trans('no_result')];
 
-        return new Response (
-            $this->serializer->serialize($companyDTO, 'json'),
-            Response::HTTP_OK
-        );
+            return new Response (
+                $this->serializer->serialize($companyDTO, 'json'),
+                Response::HTTP_OK
+            );
+        } catch (\Exception $exception) {
+            return new Response(
+                $exception->getMessage(),
+                $exception->getCode()
+            );
+        }
     }
 }
