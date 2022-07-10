@@ -19,6 +19,5 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Core\Port\Messenger\QueryBus\QueryBusInterface: '@App\Core\Infrastructure\Messenger\QueryBus\ResultQueryBusAdapter'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones

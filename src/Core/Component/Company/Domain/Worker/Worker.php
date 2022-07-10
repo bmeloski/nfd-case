@@ -9,15 +9,10 @@ use App\Core\Component\Company\Domain\Company;
 class Worker
 {
     private int $id;
-
     private string $firstName;
-
     private string $lastName;
-
     private string $email;
-
     private ?string $phoneNumber;
-
     private Company $company;
 
     public function getId(): int

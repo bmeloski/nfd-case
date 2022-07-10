@@ -4,32 +4,45 @@ declare(strict_types=1);
 
 namespace App\Presentation\Component\Company\Controller\CompanyShow;
 
+use App\Core\Component\Company\Application\DTO\CompanyDTOTransformer;
 use App\Core\Component\Company\Application\Query\GetCompanyQuery;
+use App\Core\Port\Messenger\QueryBus\QueryBusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CompanyShowController extends AbstractController
 {
-    private MessageBusInterface $queryBus;
+    private QueryBusInterface $queryBus;
+    private SerializerInterface $serializer;
+    private CompanyDTOTransformer $transformer;
+    private TranslatorInterface $translator;
 
-    public function __construct(MessageBusInterface $queryBus)
+    public function __construct(
+        QueryBusInterface $queryBus,
+        SerializerInterface $serializer,
+        CompanyDTOTransformer $transformer,
+        TranslatorInterface $translator
+    )
     {
         $this->queryBus = $queryBus;
+        $this->serializer = $serializer;
+        $this->transformer = $transformer;
+        $this->translator = $translator;
     }
 
     public function show(int $id): Response
     {
-        $response = $this->queryBus->dispatch(new GetCompanyQuery($id));
+        $companyQuery = $this->queryBus->query((new GetCompanyQuery($id)));
 
-        var_dump($response);
-        die();
+        $companyDTO = $companyQuery
+            ? $this->transformer->transformFromObject($companyQuery)
+            : [$this->translator->trans('no_result')];
 
-        return new JsonResponse (
-            $response,
+        return new Response (
+            $this->serializer->serialize($companyDTO, 'json'),
             Response::HTTP_OK
         );
     }
-
 }

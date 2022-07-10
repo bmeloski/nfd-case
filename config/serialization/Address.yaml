@@ -1,4 +1,0 @@
-App\Core\Component\Company\Domain\Company:
-    attributes:
-        company:
-            ignored: true

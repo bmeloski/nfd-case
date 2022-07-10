@@ -9,13 +9,9 @@ use App\Core\Component\Company\Domain\Company;
 class Address
 {
     private int $id;
-
     private string $streetAddress;
-
     private string $city;
-
     private string $postalCode;
-
     private Company $company;
 
     public function getId(): int
