@@ -17,3 +17,9 @@ api_company_delete:
     path:       /api/company/{id}
     controller: App\Presentation\Component\Company\Controller\API\CompanyDeleteController::delete
     methods:    DELETE
+
+
+api_worker_create:
+    path:       /api/worker
+    controller: App\Presentation\Component\Company\Controller\API\Worker\WorkerCreateController::create
+    methods:    POST

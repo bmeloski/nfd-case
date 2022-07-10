@@ -2,30 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Component\Company\Application\DTO\Worker;
+namespace App\Core\Component\Company\Application\Command\Worker;
 
-final class WorkerDTO
+class CreateWorkerCommand
 {
-    private ?int $id;
     private string $firstName;
     private string $lastName;
     private string $email;
     private ?string $phoneNumber;
     private int $companyId;
 
-    public function __construct(string $firstName, string $lastName, string $email, ?string $phoneNumber, int $companyId, ?int $id = null)
+    public function __construct(string $firstName, string $lastName, string $email, ?string $phoneNumber, int $companyId)
     {
-        $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
         $this->companyId = $companyId;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getFirstName(): string

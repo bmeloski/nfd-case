@@ -15,9 +15,32 @@ class Worker
     private ?string $phoneNumber;
     private Company $company;
 
+    public function __construct(
+        ?string $firstName = null,
+        ?string $lastName = null,
+        ?string $email = null,
+        ?string $phoneNumber = null,
+        ?Company $company = null
+    )
+    {
+        $firstName ? $this->firstName = $firstName : null;
+        $lastName ? $this->lastName = $lastName : null;
+        $email ? $this->email = $email : null;
+        $this->phoneNumber = $phoneNumber;
+        $company ? $this->company = $company : null;
+    }
+
+
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getFirstName(): string
