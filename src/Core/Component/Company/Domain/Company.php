@@ -10,19 +10,22 @@ use App\Core\Component\Company\Domain\Worker\Worker;
 class Company
 {
     private int $id;
-
     private string $name;
-
     private string $taxNumber;
-
     private Address $address;
-
-    private $workers;
+    private iterable $workers;
 
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): string

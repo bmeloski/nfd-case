@@ -6,6 +6,8 @@ namespace App\Core\Component\Company\Application\DTO;
 
 use App\Core\Component\Company\Application\DTO\Address\AddressDTOTransformer;
 use App\Core\Component\Company\Application\DTO\Worker\WorkerDTOTransformer;
+use App\Core\Component\Company\Domain\Address\Address;
+use App\Core\Component\Company\Domain\Company;
 use App\Core\Infrastructure\Response\DTO\Transformer\AbstractResponseDTOTransformer;
 
 class CompanyDTOTransformer extends AbstractResponseDTOTransformer
@@ -30,4 +32,27 @@ class CompanyDTOTransformer extends AbstractResponseDTOTransformer
         );
     }
 
+    public function transferToObject(CompanyDTO $companyDTO): Company
+    {
+        $company = new Company();
+
+        if($companyDTO->getId()) {
+            $company->setId($companyDTO->getId());
+        }
+
+        $company
+            ->setName($companyDTO->getName())
+            ->setTaxNumber($companyDTO->getTaxNumber());
+
+        $address = new Address();
+
+        $address
+            ->setStreetAddress($companyDTO->getAddress()->getStreetAddress())
+            ->setCity($companyDTO->getAddress()->getCity())
+            ->setPostalCode($companyDTO->getAddress()->getPostalCode());
+
+        $company->setAddress($address);
+
+        return $company;
+    }
 }

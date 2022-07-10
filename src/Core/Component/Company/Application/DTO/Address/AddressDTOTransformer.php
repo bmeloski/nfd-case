@@ -11,10 +11,9 @@ class AddressDTOTransformer extends AbstractResponseDTOTransformer
     public function transformFromObject($address): AddressDTO
     {
         return new AddressDTO(
-            $address->getId(),
             $address->getStreetAddress(),
             $address->getCity(),
-            $address->getPostalCode()
+            $address->getPostalCode(),
         );
     }
 
