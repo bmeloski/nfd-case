@@ -16,8 +16,8 @@ App\Core\Component\Company\Domain\Company:
 App\Core\Component\Company\Domain\Address\Address:
     properties:
         company:
-            - NotBlank: ~
-              message: 'address.blank_company'
+            - NotBlank:
+                message: 'address.blank_company'
         streetAddress:
             - NotBlank:
                   message: 'address.blank_streetAddress'
@@ -27,3 +27,20 @@ App\Core\Component\Company\Domain\Address\Address:
         postalCode:
             - NotBlank:
                   message: 'address.blank_postalCode'
+
+App\Core\Component\Company\Domain\Worker\Worker:
+  properties:
+    firstName:
+      - NotBlank:
+          message: 'worker.blank_firstname'
+    lastName:
+      - NotBlank:
+          message: 'worker.blank_lastname'
+    email:
+      - NotBlank:
+          message: 'worker.blank_email'
+      - Email:
+          message: 'worker.wrong_email'
+    company:
+      - NotBlank:
+          message: 'worker.blank_company'
