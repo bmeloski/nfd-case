@@ -2,7 +2,7 @@
 
 ## Description
 
-"REST API Utwórz REST API przy użyciu frameworka Laravel / Symfony. Celem aplikacji jest umożliwienie przesłania przez użytkownika informacji odnośnie firmy(nazwa, NIP, adres, miasto, kod pocztowy) oraz jej pracowników(imię, nazwisko, email, numer telefonu(opcjonalne)) - wszystkie pola są obowiązkowe poza tym które jest oznaczone jako opcjonalne. Uzupełnij endpointy do pełnego CRUDa dla powyższych dwóch. Zapisz dane w bazie danych. PS. Stosuj znane Ci dobre praktyki wytwarzania oprogramowania oraz korzystaj z repozytorium kodu."
+"Build REST API using Symfony/Laravel framework. The goal of the application is sending information about companies (name, tax number, address, city, postal code) and their workers(first name, last name, email, phone number(not required). All fields are required except for those that are stated not to. Develop endpoints for both entities."
 ## Installation
 
 1. Clone repo.
